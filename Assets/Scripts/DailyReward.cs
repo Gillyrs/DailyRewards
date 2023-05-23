@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 public class DailyReward : MonoBehaviour
 {
     public UnityEvent<Reward> OnRecieveRewardAbility;
+    public UnityEvent OnExpectationEnd;
     public int CoinNum;
     public static DailyReward Current;
 
@@ -61,6 +62,7 @@ public class DailyReward : MonoBehaviour
         else if(dif > new TimeSpan(2, 0, 0, 0))
         {
             InitSaves();
+            OnExpectationEnd?.Invoke();
             Debug.Log("Data reseted because of >2 days");
         }
     }

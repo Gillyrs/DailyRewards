@@ -13,6 +13,7 @@ public class RewardReciever : MonoBehaviour
     private void Start()
     {
         DailyReward.Current.OnRecieveRewardAbility.AddListener(GetReward);
+        DailyReward.Current.OnExpectationEnd.AddListener(TurnOffAllRecievers);
     }
     public void GetReward(Reward reward)
     {
@@ -28,5 +29,12 @@ public class RewardReciever : MonoBehaviour
                     $"LastDate: " +
                     $"{JsonConvert.DeserializeObject<DateTime>(PlayerPrefs.GetString(DailyReward.Current.LastDate))}");
             });
+    }
+    public void TurnOffAllRecievers()
+    {
+        foreach (var item in recieveElements)
+        {
+            item.SetDisableState();
+        }
     }
 }
